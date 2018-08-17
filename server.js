@@ -8,11 +8,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const request = require('request');
 var exphbs  = require('express-handlebars');
-
-//Scraping tool
-const cheerio = require('cheerio');
 
 var PORT = 3000;
 

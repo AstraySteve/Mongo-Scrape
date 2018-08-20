@@ -12,23 +12,28 @@ module.exports =(app)=>{
 
     //get/ scrape articles
     app.get("/scrape", (req, res)=>{
-        request("https://myanimelist.net/news",(error,res,html)=>{
+        request("https://myanimelist.net/news",(error,result,html)=>{
             let $ = cheerio.load(html);
-            let result = []
+            
             $("div.news-unit-right").each((i,element)=>{
                 let title = $(element).children($('p.title')).children().text();
                 let link = $(element).children($('p.title')).children().attr("href");
                 let summary = $(element).children($('div.text')).text();
 
-                result.push({
+                let result = {
                     title: title,
                     link: link,
-                    summary: summary.trim(),
-                });
+                    summary: summary.trim()
+                }
 
                 //Create a new Article using the 'result' object
+                db.Article.create(result).then((dbArticle)=>{
+                    //log result in console
+                    console.log(dbArticle);
+                }).catch((err)=>{
+                   res.json(err);
+                });
             });
-            console.log(result);
         });
         res.send("scrape complete");
     });
@@ -43,5 +48,17 @@ module.exports =(app)=>{
             //If error occured on retrevial
             res.json(err);
         });
+    });
+
+    //Route for getting a specific Article by id, populate it with it's note
+    app.get("/articles/:id", (req,res)=>{
+        db.Article.findOne({_id:req.params.id})
+            .populate("note")
+            .then((dbArticle)=>{
+                //If successful
+                res.json(dbArticle);
+            }).catch((err)=>{
+                res.json(err);
+            });
     });
 };

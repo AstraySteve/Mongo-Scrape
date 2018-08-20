@@ -8,7 +8,8 @@ let ArticleSchema = new Schema({
     //'Title' is required and of type String
     title: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     //'link' is required and of type String
     link: {
@@ -18,6 +19,11 @@ let ArticleSchema = new Schema({
     //'summary' is of type String
     summary: {
         type: String
+    },
+    //'note' is an object that stores a Note id
+    note: {
+        type: Schema.Types.ObjectId,
+        ref: "Note"
     }
 });
 

@@ -8,9 +8,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-var exphbs  = require('express-handlebars');
+const exphbs  = require('express-handlebars');
 
-var PORT = 3000;
+let PORT = 3000;
 
 //Init Express
 const app = express();
@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 
 //Connect to Mongo DB
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
 //Set mongoose to Leverage built in JavaScript ES6 Promises
 //Connect to the Mongo DB

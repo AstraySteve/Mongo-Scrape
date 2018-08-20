@@ -1,5 +1,10 @@
-.btn{
-    margin: 0vh 0.5vw;
+html{
+    position: relative;
+    min-height: 100%;
+}
+
+body{
+    margin-bottom: 2vh;
 }
 
 .footer{
@@ -7,4 +12,12 @@
     background-color: #3e48a0;
     color: white;
     padding: 2vh;
+
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.btn{
+    margin: 0.5vh;
 }

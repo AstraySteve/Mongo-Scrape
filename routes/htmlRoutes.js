@@ -7,7 +7,7 @@ const cheerio = require('cheerio');
 module.exports =(app)=>{
     //home page
     app.get("/",(req, res)=>{
-        res.render("index");
+        res.render("index",{customScript: '/js/index.js'});
     });
 
     //get/ scrape articles

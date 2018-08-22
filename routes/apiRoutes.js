@@ -15,19 +15,19 @@ module.exports =(app)=>{
                 let link = $(element).children($('p.title')).children().attr("href");
                 let summary = $(element).children($('div.text')).text();
 
-                let result = {
+                let scraped = {
                     title: title,
                     link: link,
                     summary: summary.trim()
                 }
 
                 //Create a new Article using the 'result' object
-                db.Article.create(result).then((dbArticle)=>{
+                db.Article.create(scraped).then((dbArticle)=>{
                     //log result in console
                     console.log(dbArticle);
                     res.json(true);
                 }).catch((err)=>{
-                    res.json(err);
+                    return res.json(err);
                 });
             });
         });
@@ -56,4 +56,13 @@ module.exports =(app)=>{
                 res.json(err);
             });
     });
+
+    //Route for deleting all documents
+    app.delete("/clearAll", (req,res)=>{
+        db.Article.deleteMany({},(err)=>{
+            if(err){
+                return res.json(err);
+            }
+        });
+    })
 };

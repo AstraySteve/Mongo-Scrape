@@ -1,6 +1,5 @@
 //JavaScript for the home page
 $(()=>{
-    console.log("Hello World");
     //Grab articles as JSON
     $.getJSON("/articles",(articleData)=>{
         //console.log(articleData);
@@ -39,5 +38,18 @@ $(()=>{
     //onClick for saved articles
     $("#articles").on("click", ".save", function(){
         console.log($(this).data('id'));
+        //Send to saved document?
     });
+
+    //onClick for clear articles
+    $(".navbar").on("click","#clear-articles",()=>{
+        console.log("deleted");
+        $.ajax({
+            method:"DELETE",
+            url:"/clearAll"
+        }).then(()=>{
+            //reload page
+            location.reload();
+        })
+    })
 });

@@ -28,7 +28,7 @@ module.exports =(app)=>{
                     return res.json(err);
                 });
             });
-            res.send("Scrape Complete");
+            res.render("index",{customScript: '/js/index.js'});
         });
     });
 
@@ -62,6 +62,7 @@ module.exports =(app)=>{
             if(err){
                 return res.json(err);
             }
+            res.render("index",{customScript: '/js/index.js'});
         });
     })
 };

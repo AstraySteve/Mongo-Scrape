@@ -10,7 +10,7 @@ module.exports =(app)=>{
         request("https://myanimelist.net/news",(error,result,html)=>{
             let $ = cheerio.load(html);
             
-            $("div.news-unit-right").each((element)=>{
+            $("div.news-unit-right").each((i,element)=>{
                 let title = $(element).children($('p.title')).children().text();
                 let link = $(element).children($('p.title')).children().attr("href");
                 let summary = $(element).children($('div.text')).text();

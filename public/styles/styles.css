@@ -3,21 +3,22 @@ html{
     min-height: 100%;
 }
 
-body{
-    margin-bottom: 2vh;
-}
-
 .footer{
     text-align: center;
     background-color: #3e48a0;
     color: white;
     padding: 2vh;
-
-    position: absolute;
-    bottom: 0;
     width: 100%;
 }
 
 .btn{
     margin: 1vh 0.5vw;
+}
+
+.article-link{
+    color: white;
+}
+
+.save{
+    float: right;
 }

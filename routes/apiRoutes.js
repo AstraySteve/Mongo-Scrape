@@ -5,6 +5,7 @@ const request = require('request');
 const cheerio = require('cheerio');
 
 module.exports =(app)=>{
+    /*api routes for Articles*/
     //get/ scrape articles
     app.get("/scrape", (req, res)=>{
         request("https://myanimelist.net/news",(error,result,html)=>{
@@ -84,7 +85,12 @@ module.exports =(app)=>{
             if(err){
                 return res.json(err);
             }
-            res.render("index",{customScript: '/js/index.js'});
+            db.Note.deleteMany({},(err)=>{
+                if(err){
+                    return res.json(err);
+                }
+                res.render("index",{customScript: '/js/index.js'});
+            });
         });
-    })
+    });
 };

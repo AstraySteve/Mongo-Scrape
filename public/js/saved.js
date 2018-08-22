@@ -34,4 +34,27 @@ $(()=>{
             }
         });
     });
+
+    //button to toggle model to add note
+    $("#articles").on("click",".add-note", function(){
+        let articleID = $(this).data('id');
+        //console.log(articleID);
+        $("#noteID").text(articleID);
+        $("#note-modal").modal("toggle");
+    });
+
+    //onClick for submiting note
+    $(".form-group").on("click","#save-note", function(e){
+        e.preventDefault();
+        let articleID = $("#noteID").text();
+        let note = {
+            body: $("#note-text").val()
+        }
+        //ajax call to create note
+        $.ajax({
+            method:"GET",
+            url: `/articles/${articleID}`,
+            
+        })
+    })
 });

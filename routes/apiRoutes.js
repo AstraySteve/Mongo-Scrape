@@ -113,12 +113,15 @@ module.exports =(app)=>{
         });
     });
 
-    //Route for deleting a Note
-    app.delete("/note/:id", (req,res)=>{
+    //Route for deleting a Note and updating Article
+    app.put("/note/:id", (req,res)=>{
         db.Note.deleteOne({_id: req.params.id}, (err)=>{
             if(err){
                 return res.json(err);
             }
+            return db.Article.update({},{$pull:{note:req.params.id}});
+        }).then((dbArticle)=>{
+            res.json(dbArticle);
         })
     })
 };

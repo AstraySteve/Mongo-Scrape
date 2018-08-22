@@ -49,7 +49,7 @@ $(()=>{
             $(".note-container").empty();
             //if note exist populate it
             if(data.note && data.note.length){
-                console.log(data.note);
+                //console.log(data.note);
                 data.note.forEach(element =>{
                     $(".note-container").append(`
                         <li class="list-group-item d-flex justify-content-between align-items-center" data-id="${element._id}">
@@ -88,7 +88,7 @@ $(()=>{
 
         //ajax call to remove note
         $.ajax({
-            method: "DELETE",
+            method: "PUT",
             url: `/note/${noteID}`
         })
     });

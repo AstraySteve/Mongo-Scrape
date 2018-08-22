@@ -10,26 +10,25 @@ module.exports =(app)=>{
         request("https://myanimelist.net/news",(error,result,html)=>{
             let $ = cheerio.load(html);
             
-            $("div.news-unit-right").each((i,element)=>{
+            $("div.news-unit-right").each((element)=>{
                 let title = $(element).children($('p.title')).children().text();
                 let link = $(element).children($('p.title')).children().attr("href");
                 let summary = $(element).children($('div.text')).text();
 
-                let scraped = {
+                let scrapedData = {
                     title: title,
                     link: link,
                     summary: summary.trim()
                 }
 
                 //Create a new Article using the 'result' object
-                db.Article.create(scraped).then((dbArticle)=>{
-                    //log result in console
+                db.Article.create(scrapedData).then((dbArticle)=>{
                     console.log(dbArticle);
-                    res.json(true);
                 }).catch((err)=>{
                     return res.json(err);
                 });
             });
+            res.send("Scrape Complete");
         });
     });
 

@@ -9,7 +9,7 @@ $(()=>{
             cardHeader.append(`
                 <h5>
                     <a class="article-link" target="_blank" rel="noopener noreferre" href="${element.link}">${element.title}</a>
-                    <button class='btn btn-success btn-sm save' data-id='${element._id}'>SAVE ARTICLE</button>
+                    <button class='btn btn-success btn-sm card-btn save' data-id='${element._id}'>SAVE ARTICLE</button>
                 </h5>`
             );
             let cardBody = $(`<div class="card-body bg-light">`);
@@ -22,7 +22,15 @@ $(()=>{
 
     //onClick for saved articles
     $("#articles").on("click", ".save", function(){
-        console.log($(this).data('id'));
-        //Send to saved document?
+        $(this).parent().parent().parent().remove();
+        let articleID = $(this).data('id');
+        console.log(articleID);
+        $.ajax({
+            method: "PUT",
+            url: `/articles/${articleID}`,
+            data: {
+                isSaved: true,
+            }
+        });
     });
 });

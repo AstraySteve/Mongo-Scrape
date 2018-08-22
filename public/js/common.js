@@ -23,7 +23,7 @@ $(()=>{
             url:"/clearAll"
         }).then(()=>{
             //reload page
-            location.reload();
+            $("#articles").empty();
         });
     });
 });

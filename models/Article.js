@@ -19,6 +19,11 @@ let ArticleSchema = new Schema({
     summary: {
         type: String
     },
+    //'isSaved' is of type Boolean, determind if articled is saved already
+    isSaved: {
+        type: Boolean,
+        default: false
+    },
     //'note' is an object that stores a Note id
     note: {
         type: Schema.Types.ObjectId,

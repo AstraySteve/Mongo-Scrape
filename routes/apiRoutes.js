@@ -32,10 +32,22 @@ module.exports =(app)=>{
         });
     });
 
-    //Route for getting all Articles from the db
+    //Route for getting all non saved Articles from the db
     app.get("/articles", (req,res)=>{
         //Grab every document in the Articles collection
-        db.Article.find({}).then((dbArticle)=>{
+        db.Article.find({isSaved: false}).then((dbArticle)=>{
+            //If successful
+            res.json(dbArticle);
+        }).catch((err)=>{
+            //If error occured on retrevial
+            res.json(err);
+        });
+    });
+
+    //Route for getting all saved Articles from the db
+    app.get("/saved-articles", (req,res)=>{
+        //Grab every document in the Articles collection
+        db.Article.find({isSaved: true}).then((dbArticle)=>{
             //If successful
             res.json(dbArticle);
         }).catch((err)=>{
@@ -54,6 +66,16 @@ module.exports =(app)=>{
             }).catch((err)=>{
                 res.json(err);
             });
+    });
+
+    //Route for updating article boolean
+    app.put("/articles/:id", (req,res)=>{
+        db.Article.findOneAndUpdate({_id: req.params.id}, {isSaved: req.body.isSaved}, (err, result)=>{
+            if(err){
+                res.json(err);
+            }
+            res.json(result);
+        });
     });
 
     //Route for deleting all documents

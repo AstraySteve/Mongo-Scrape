@@ -17,6 +17,7 @@ const app = express();
 
 //body-parser
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
 //express.static to serve public folder as static directory
 app.use(express.static("public"));
 

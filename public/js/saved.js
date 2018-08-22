@@ -40,6 +40,21 @@ $(()=>{
         let articleID = $(this).data('id');
         //console.log(articleID);
         $("#noteID").text(articleID);
+        //ajax call to display note
+        $.ajax({
+            method:"GET",
+            url: `/articles/${articleID}`,
+        }).then((data)=>{
+            if(data.note){
+                $(".note-container").append(`
+                    <li class="list-group-item d-flex justify-content-between align-items-center" data-id="${data.note._id}">
+                        ${data.note.body}
+                        <button class="btn btn-danger btn-sm card-btn rm-note">X</button>
+                    </li>`
+                );
+            }
+        })
+
         $("#note-modal").modal("toggle");
     });
 
@@ -52,9 +67,23 @@ $(()=>{
         }
         //ajax call to create note
         $.ajax({
-            method:"GET",
+            method:"POST",
             url: `/articles/${articleID}`,
-            
+            data: note
+        }).then((response)=>{
+            console.log(response);
+        });
+    });
+
+    //onClick for removing note
+    $(".note-container").on("click", ".rm-note", function(){
+        let noteID = $(this).parent().data('id');
+        $(this).parent().remove();
+
+        //ajax call to remove note
+        $.ajax({
+            method: "DELETE",
+            url: `/note/${noteID}`
         })
-    })
+    });
 });

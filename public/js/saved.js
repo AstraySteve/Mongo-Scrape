@@ -45,13 +45,19 @@ $(()=>{
             method:"GET",
             url: `/articles/${articleID}`,
         }).then((data)=>{
-            if(data.note){
-                $(".note-container").append(`
-                    <li class="list-group-item d-flex justify-content-between align-items-center" data-id="${data.note._id}">
-                        ${data.note.body}
-                        <button class="btn btn-danger btn-sm card-btn rm-note">X</button>
-                    </li>`
-                );
+            //clear note-container for repopulate
+            $(".note-container").empty();
+            //if note exist populate it
+            if(data.note && data.note.length){
+                console.log(data.note);
+                data.note.forEach(element =>{
+                    $(".note-container").append(`
+                        <li class="list-group-item d-flex justify-content-between align-items-center" data-id="${element._id}">
+                            ${element.body}
+                            <button class="btn btn-danger btn-sm card-btn rm-note">X</button>
+                        </li>`
+                    ); 
+                });
             }
         })
 

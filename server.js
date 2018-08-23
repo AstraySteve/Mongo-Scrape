@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const exphbs  = require('express-handlebars');
 
-let PORT = 3000;
+let PORT = process.env.PORT || 3000;
 
 //Init Express
 const app = express();
